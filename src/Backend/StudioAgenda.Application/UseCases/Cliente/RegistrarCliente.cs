@@ -30,7 +30,8 @@ public class RegistrarCliente : IRegistrarCliente
         await ValidarDadosEntrada(dados);
        
         var clienteRegistrado = dados.Adapt<Domain.Entidades.Cliente>();
-        clienteRegistrado.Senha = _senhaHash.HashSenha(clienteRegistrado.Senha);
+
+        SenhaHash(clienteRegistrado);
         
         await _registrarCliente.RegistrarCliente(clienteRegistrado);
         await _unitOfWork.Commit();
@@ -52,8 +53,10 @@ public class RegistrarCliente : IRegistrarCliente
                 .Select(erro => erro.ErrorMessage).ToList();
             throw new ErrorOnValidationAgendaException(errorMessage);
         }
-        
-        
-      
+    }
+
+    private void SenhaHash(Domain.Entidades.Cliente dados)
+    {
+        dados.Senha = _senhaHash.HashSenha(dados.Senha);
     }
 }

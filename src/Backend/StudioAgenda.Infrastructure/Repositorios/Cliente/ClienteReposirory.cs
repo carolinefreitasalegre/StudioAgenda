@@ -16,7 +16,7 @@ internal class ClienteReposirory : IRegistrarClienteReposirory, ILeituraClienteR
     
     public async Task<bool> ExisteUsuarioAtivoTelefone(string telefone)
     {
-        return await _context.clientes.AnyAsync(cliente => cliente.Equals(telefone));
+        return await _context.clientes.AnyAsync(cliente => cliente.Telefone.Equals(telefone));
     }
     
     public async Task<bool> ExisteUsuarioAtivoId(Guid id)
