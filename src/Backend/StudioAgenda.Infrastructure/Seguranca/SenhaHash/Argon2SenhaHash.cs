@@ -24,7 +24,6 @@ internal sealed class Argon2SenhaHash : ISenhaHash
         salt.CopyTo(bytesCombinados, index: salt.Length);
         
         var senhaCripto = Convert.ToBase64String(bytesCombinados);
-        Console.WriteLine($"Senha: {senhaCripto}");
         
         return Convert.ToBase64String(bytesCombinados);
     }
