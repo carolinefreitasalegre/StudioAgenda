@@ -20,8 +20,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+if (!app.Environment.IsEnvironment("Tests"))
+{
+    app.UseHttpsRedirection();
+}
 
-app.UseHttpsRedirection();
 
 //aqiui o autorization
 app.MapControllers();
@@ -29,3 +32,7 @@ app.MapControllers();
 
 app.Run();
 
+
+//partial é para fazer uma fusao com a classe criada e a class gerada 
+
+public partial class Program{}  
