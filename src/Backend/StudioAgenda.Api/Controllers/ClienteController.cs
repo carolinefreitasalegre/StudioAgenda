@@ -5,7 +5,7 @@ using StudioAgenda.Domain.Dtos.Requisicoes;
 
 namespace StudioAgenda.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ClienteController : ControllerBase
     {
