@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using StudioAgenda.Application.UseCases.Cliente;
+using StudioAgenda.Application.UseCases.Profissional.Registrar;
 using StudioAgenda.Application.Validacoes;
 using StudioAgenda.Domain.Dtos.Requisicoes;
 
@@ -17,10 +18,12 @@ public static class InjecaoDependencias
     private static void AddUseCases(this IServiceCollection services)
     {
         services.AddTransient<IRegistrarCliente, RegistrarCliente>();
+        services.AddTransient<IRegistrarProfissional, RegistrarProfissional>();
     }
 
     private static void AddValidators(this IServiceCollection services)
     {
-        services.AddTransient<IValidator<RequisicaoRegistrarCliente>, ValidacaoCliente>();
+        services.AddTransient<IValidator<RequisicaoRegistrarCliente>, ValidacaoRegistroCliente>();
+        services.AddTransient<IValidator<RequisicaoRegistrarProfissional>, ValidacaoRegistroProfissional>();
     }
 }

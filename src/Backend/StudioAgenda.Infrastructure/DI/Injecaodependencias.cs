@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudioAgenda.Domain.Repositorios;
+using StudioAgenda.Domain.Repositorios.Profissional;
 using StudioAgenda.Domain.Seguranca.SenhaHash;
 using StudioAgenda.Infrastructure.Repositorios;
 using StudioAgenda.Infrastructure.Repositorios.Cliente;
@@ -22,6 +23,8 @@ public static class Injecaodependencias
         servise.AddScoped<IUnitOfWork, UnitOfWork>();
         servise.AddScoped<IRegistrarClienteReposirory, ClienteReposirory>();
         servise.AddScoped<ILeituraClienteRepository, ClienteReposirory>();
+        servise.AddScoped<IRegistrarProfissionalRepository, ProfissionalRepository>();
+        servise.AddScoped<ILeituraProfissionalRepository, ProfissionalRepository>();
         servise.AddScoped<ISenhaHash, Argon2SenhaHash>();
     }
 

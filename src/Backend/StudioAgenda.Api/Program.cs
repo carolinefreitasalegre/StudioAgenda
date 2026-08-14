@@ -26,7 +26,7 @@ if (!app.Environment.IsEnvironment("Tests"))
 }
 
 
-//aqiui o autorization
+//aqui o autorization
 app.MapControllers();
 
 

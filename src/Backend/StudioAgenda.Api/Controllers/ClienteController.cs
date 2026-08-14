@@ -14,8 +14,8 @@ namespace StudioAgenda.Api.Controllers
         public async Task<IActionResult>Clientes([FromBody] RequisicaoRegistrarCliente cliente,
             [FromServices] IRegistrarCliente dados)
         {
-            var respposta = await dados.Execute(cliente);
-            return Created("",  respposta);
+            var resposta = await dados.Execute(cliente);
+            return Created("",  resposta);
         }
     }
 }
