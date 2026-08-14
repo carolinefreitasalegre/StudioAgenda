@@ -11,7 +11,6 @@ namespace StudioAgenda.Application.UseCases.Cliente;
 
 public class RegistrarCliente : IRegistrarCliente
 {
-    //private readonly IValidator<RequisicaoRegistrarCliente> _validar;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRegistrarClienteReposirory _registrarCliente;
     private readonly ILeituraClienteRepository _leituraClienteRepository;
