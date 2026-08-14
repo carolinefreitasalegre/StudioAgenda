@@ -3,9 +3,9 @@ using StudioAgenda.Domain.Dtos.Requisicoes;
 
 namespace StudioAgenda.Application.Validacoes;
 
-public class ValidacaoCliente : ValidacaoUsuarioBase<RequisicaoRegistrarCliente>
+public class ValidacaoRegistroCliente : ValidacaoUsuarioBase<RequisicaoRegistrarCliente>
 {
-    public ValidacaoCliente()
+    public ValidacaoRegistroCliente()
     {
         RuleFor(x => x.PontosFidelidade).GreaterThanOrEqualTo(0);    
     }

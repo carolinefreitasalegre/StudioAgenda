@@ -19,7 +19,6 @@ public class RegistrarCliente : IRegistrarCliente
 
     public RegistrarCliente( IUnitOfWork unitOfWork, IRegistrarClienteReposirory registrarCliente, ISenhaHash senhaHash, ILeituraClienteRepository leituraClienteRepository)
     {
-        // _validar = validar;
         _unitOfWork = unitOfWork;
         _registrarCliente = registrarCliente;
         _senhaHash  = senhaHash;
@@ -32,7 +31,7 @@ public class RegistrarCliente : IRegistrarCliente
        
         var clienteRegistrado = dados.Adapt<Domain.Entidades.Cliente>();
 
-        SenhaHash(clienteRegistrado);
+        await SenhaHash(clienteRegistrado);
         
         await _registrarCliente.RegistrarCliente(clienteRegistrado);
         await _unitOfWork.Commit();
@@ -42,7 +41,7 @@ public class RegistrarCliente : IRegistrarCliente
 
     private async Task ValidarDadosEntrada(RequisicaoRegistrarCliente dados)
     {
-        var validator = new ValidacaoCliente();
+        var validator = new ValidacaoRegistroCliente();
         var resultado = await validator.ValidateAsync(dados);
         
         var existeTelefone = await _leituraClienteRepository.ExisteUsuarioAtivoTelefone(dados.Telefone);
@@ -57,7 +56,7 @@ public class RegistrarCliente : IRegistrarCliente
         }
     }
 
-    private void SenhaHash(Domain.Entidades.Cliente dados)
+    private async Task SenhaHash(Domain.Entidades.Cliente dados)
     {
         dados.Senha = _senhaHash.HashSenha(dados.Senha);
     }

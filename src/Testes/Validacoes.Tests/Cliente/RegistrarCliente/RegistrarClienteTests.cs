@@ -10,7 +10,7 @@ public class RegistrarClienteTests
     public void Success()
     {
         var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
-        var validator = new ValidacaoCliente();
+        var validator = new ValidacaoRegistroCliente();
         var result = validator.Validate(request);
         
         Assert.True(result.IsValid);
@@ -23,7 +23,7 @@ public class RegistrarClienteTests
     {
         var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
         request.Nome = string.Empty;
-        var validator = new ValidacaoCliente();
+        var validator = new ValidacaoRegistroCliente();
         var result = validator.Validate(request);
         
         result.IsValid.ShouldBeFalse();
@@ -39,7 +39,7 @@ public class RegistrarClienteTests
     {
         var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
         request.Telefone = string.Empty;
-        var validator = new ValidacaoCliente();
+        var validator = new ValidacaoRegistroCliente();
         var result = validator.Validate(request);
         
         result.IsValid.ShouldBeFalse();
@@ -55,7 +55,7 @@ public class RegistrarClienteTests
     {
         var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
         request.Senha = string.Empty;
-        var validator = new ValidacaoCliente();
+        var validator = new ValidacaoRegistroCliente();
         var result = validator.Validate(request);
         
         result.IsValid.ShouldBeFalse();
