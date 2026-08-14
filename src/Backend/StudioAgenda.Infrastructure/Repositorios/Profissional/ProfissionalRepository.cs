@@ -30,6 +30,6 @@ internal class ProfissionalRepository : IRegistrarProfissionalRepository, ILeitu
 
     public async Task<Profissional?> ObterViaEmail(string email)
     {
-        return await _context.profissionais.FirstOrDefaultAsync(profissional => profissional.Equals(email));
+        return await _context.profissionais.FirstOrDefaultAsync(profissional => profissional.Email.Equals(email));
     }
 }
