@@ -3,18 +3,19 @@ using StudioAgenda.Domain.Repositorios;
 
 namespace CommonTestsUtilies.Repositorios;
 
-public class ILeituraClienteRepositoryBuild
+public class ILeituraClienteRepositoryBuilder
 {
     private readonly  Mock<ILeituraClienteRepository> _mock;
 
-    public ILeituraClienteRepositoryBuild()
+    public ILeituraClienteRepositoryBuilder()
     {
         _mock = new  Mock<ILeituraClienteRepository>();
     }
 
-    public void ExisteUsuarioAtivoTelefone(string telefone)
+    public ILeituraClienteRepositoryBuilder ExisteUsuarioAtivoTelefone(string telefone)
     {
         _mock.Setup(repositorio => repositorio.ExisteUsuarioAtivoTelefone(telefone)).ReturnsAsync(true);
+        return this;
     }
 
     public ILeituraClienteRepository Build()

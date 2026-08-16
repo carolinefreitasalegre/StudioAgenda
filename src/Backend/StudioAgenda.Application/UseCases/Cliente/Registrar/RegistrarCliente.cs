@@ -24,7 +24,7 @@ public class RegistrarCliente : IRegistrarCliente
         _leituraClienteRepository = leituraClienteRepository;
     }
 
-    public async Task<RespostaRegistroClienteJson> Execute(RequisicaoRegistrarCliente dados)
+    public async Task<RespostaRegistroUsuarioJson> Execute(RequisicaoRegistrarCliente dados)
     {
         await ValidarDadosEntrada(dados);
        
@@ -35,7 +35,7 @@ public class RegistrarCliente : IRegistrarCliente
         await _registrarCliente.RegistrarCliente(clienteRegistrado);
         await _unitOfWork.Commit();
         
-        return clienteRegistrado.Adapt<RespostaRegistroClienteJson>();
+        return clienteRegistrado.Adapt<RespostaRegistroUsuarioJson>();
     }
 
     private async Task ValidarDadosEntrada(RequisicaoRegistrarCliente dados)

@@ -17,7 +17,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
      [Fact]
      public async Task Success()
      {                                                                 
-         var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+         var request = RequisicaoRegistrarClienteJsonBuilder.Build();
          
          var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
          
@@ -35,7 +35,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenNameIsEmpty()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Nome = string.Empty;
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -58,7 +58,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPasswordIsTooShort()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Senha = "Ab1!";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -81,7 +81,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPasswordHasNoNumber()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Senha = "Abcdefghi!";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -104,7 +104,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPasswordHasNoSpecialCharacter()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Senha = "Abcdefghi1";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -127,7 +127,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPhoneHasInvalidLength()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Telefone = "1234567890";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -150,7 +150,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPhoneContainsNonNumericCharacters()
     {
-        var request = RequisicaoRegistrarUsuarioJsonBuilder.Build();
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
         request.Telefone = "1198765432A";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);

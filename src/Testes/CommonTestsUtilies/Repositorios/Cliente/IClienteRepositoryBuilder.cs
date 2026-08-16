@@ -8,7 +8,6 @@ public class IClienteRepositoryBuilder
     public static IRegistrarClienteReposirory Build()
     {
         var mock = new Mock<IRegistrarClienteReposirory>();
-        
         return mock.Object;
     }
 }
