@@ -1,16 +1,12 @@
 using StudioAgenda.Domain.Enums;
 
-namespace StudioAgenda.Domain.Entidades;
+namespace StudioAgenda.Communication.Respostas;
 
-public class Agenda
+public class RespostaRegistroAgendaJson
 {
-    public Guid Id { get; set; }
-
     public Guid ClienteId { get; set; }
-    public virtual Cliente Cliente { get; set; } 
 
     public Guid ProfissionalId { get; set; }
-    public virtual Profissional Profissional { get; set; } 
 
     public DateTime DataHora { get; set; }
 

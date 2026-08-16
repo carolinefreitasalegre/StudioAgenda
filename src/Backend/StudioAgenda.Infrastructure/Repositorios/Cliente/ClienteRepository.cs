@@ -3,11 +3,11 @@ using StudioAgenda.Domain.Repositorios;
 
 namespace StudioAgenda.Infrastructure.Repositorios.Cliente;
 
-internal class ClienteReposirory : IRegistrarClienteReposirory, ILeituraClienteRepository
+internal class ClienteRepository : IRegistrarClienteReposirory, ILeituraClienteRepository
 {
     private readonly StudioAgendaDbContext _context;
 
-    public ClienteReposirory(StudioAgendaDbContext context)
+    public ClienteRepository(StudioAgendaDbContext context)
     {
         _context = context;
     }
