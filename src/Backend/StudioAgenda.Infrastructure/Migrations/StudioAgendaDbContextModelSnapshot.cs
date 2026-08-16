@@ -17,10 +17,46 @@ namespace StudioAgenda.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.20")
+                .HasAnnotation("ProductVersion", "8.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("StudioAgenda.Domain.Entidades.Agenda", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProfissionalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Servico")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProfissionalId");
+
+                    b.ToTable("agendas");
+                });
 
             modelBuilder.Entity("StudioAgenda.Domain.Entidades.Cliente", b =>
                 {
@@ -73,6 +109,25 @@ namespace StudioAgenda.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("profissionais");
+                });
+
+            modelBuilder.Entity("StudioAgenda.Domain.Entidades.Agenda", b =>
+                {
+                    b.HasOne("StudioAgenda.Domain.Entidades.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudioAgenda.Domain.Entidades.Profissional", "Profissional")
+                        .WithMany()
+                        .HasForeignKey("ProfissionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Profissional");
                 });
 #pragma warning restore 612, 618
         }
