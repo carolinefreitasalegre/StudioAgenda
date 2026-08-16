@@ -5,5 +5,5 @@ namespace StudioAgenda.Application.UseCases.Cliente;
 
 public interface IRegistrarCliente
 {
-    Task<RespostaRegistroClienteJson> Execute(RequisicaoRegistrarCliente dados);
+    Task<RespostaRegistroUsuarioJson> Execute(RequisicaoRegistrarCliente dados);
 }

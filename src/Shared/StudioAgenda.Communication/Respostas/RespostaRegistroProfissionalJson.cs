@@ -1,6 +1,6 @@
 namespace StudioAgenda.Communication.Respostas;
 
-public class RespostaRegistroProfissionalJson : RespostaRegistroClienteJson
+public class RespostaRegistroProfissionalJson : RespostaRegistroUsuarioJson
 {
     
 }

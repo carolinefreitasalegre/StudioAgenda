@@ -3,11 +3,11 @@ using StudioAgenda.Domain.Seguranca.SenhaHash;
 
 namespace CommonTestsUtilies.Repositorios;
 
-public class ISenaHashBuilder
+public class ISenhaHashBuilder
 {
     private readonly Mock<ISenhaHash> _mock;
 
-    public ISenaHashBuilder()
+    public ISenhaHashBuilder()
     {
         _mock = new Mock<ISenhaHash>();
         _mock.Setup(senhaHash => senhaHash.HashSenha(It.IsAny<string>())).Returns("senha-hash");

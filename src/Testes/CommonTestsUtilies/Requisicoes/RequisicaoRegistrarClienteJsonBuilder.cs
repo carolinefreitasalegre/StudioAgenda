@@ -3,7 +3,7 @@ using StudioAgenda.Domain.Dtos.Requisicoes;
 
 namespace CommonTestsUtilies.Requisicoes;
 
-public class RequisicaoRegistrarUsuarioJsonBuilder
+public class RequisicaoRegistrarClienteJsonBuilder
 {
     public static RequisicaoRegistrarCliente Build()
     {

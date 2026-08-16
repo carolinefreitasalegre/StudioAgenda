@@ -10,7 +10,7 @@ namespace StudioAgenda.Api.Controllers
     public class ClienteController : ControllerBase
     {
         [HttpPost]
-        [ProducesResponseType(typeof(RespostaRegistroClienteJson), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(RespostaRegistroUsuarioJson), StatusCodes.Status201Created)]
         public async Task<IActionResult>Clientes([FromBody] RequisicaoRegistrarCliente cliente,
             [FromServices] IRegistrarCliente dados)
         {
