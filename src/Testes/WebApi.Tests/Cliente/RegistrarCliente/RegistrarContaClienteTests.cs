@@ -7,7 +7,7 @@ using Shouldly;
 namespace WebApi.Tests.Cliente.RegistrarCliente;
 
 public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactory>{
-     private const string REQUEST_URI = "/Cliente";
+     private const string REQUEST_URI = "/agenda";
      private readonly HttpClient _client;
      
      public RegistrarClienteTests(StudioAgendaApplicationFactory factory)
