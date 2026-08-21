@@ -21,9 +21,7 @@ internal sealed class Argon2SenhaHash : ISenhaHash
         
         var bytesCombinados = new byte[hash.Length + salt.Length];
         salt.CopyTo(bytesCombinados, 0);
-        salt.CopyTo(bytesCombinados, index: salt.Length);
-        
-        var senhaCripto = Convert.ToBase64String(bytesCombinados);
+        hash.CopyTo(bytesCombinados, salt.Length);  
         
         return Convert.ToBase64String(bytesCombinados);
     }
@@ -39,7 +37,6 @@ internal sealed class Argon2SenhaHash : ISenhaHash
        
        var novaHash = HashSenha(senha, salt);
 
-       //para que seja sempre usado o mesmo tempo de "teste" de senha
        return CryptographicOperations.FixedTimeEquals(hash, novaHash);
     }
 

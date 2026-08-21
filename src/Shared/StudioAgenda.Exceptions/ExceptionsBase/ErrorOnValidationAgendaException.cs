@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace StudioAgenda.Exceptions.ExceptionsBase;
 
 public class ErrorOnValidationAgendaException : StudioAgendaException
@@ -6,5 +8,13 @@ public class ErrorOnValidationAgendaException : StudioAgendaException
 
     public ErrorOnValidationAgendaException(List<string> mensagensErro) => _errors = mensagensErro;
     
-    public List<string> PegarMensagensErro() => _errors;
+    public override HttpStatusCode PegarStatusCode()
+    {
+        return HttpStatusCode.BadRequest;
+    }
+
+    public override List<string> PegarMensagensDeErro()
+    {
+        return _errors;
+    }
 }
