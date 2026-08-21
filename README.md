@@ -31,6 +31,7 @@ O **StudioAgenda** é uma solução voltada para o agendamento e a gestão de at
 - **ORMs / Acesso a Dados:** Entity Framework Core
 - **Documentação de API:** Swagger (OpenAPI)
 - **Criptografia / Segurança:** Argon2 (para cálculo seguro de hash de senhas)
+- **Tratamento de erros
 - **Containerização:** Docker e Docker Compose
 - **Testes & Dados Fictícios:** 
   - xUnit / Moq (ou equivalente para testes unitários)
