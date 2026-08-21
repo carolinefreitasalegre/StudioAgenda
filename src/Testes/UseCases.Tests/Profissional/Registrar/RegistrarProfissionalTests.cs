@@ -35,7 +35,7 @@ public class RegistrarProfissionalTests
         var useCase = RegistrarProfissionalUseCase(leituraRepository);
         var result = async () =>  await useCase.Execute(request);
         var exception = await result.ShouldThrowAsync<ErrorOnValidationAgendaException>();
-        exception.PegarMensagensErro().ShouldContain("Email já existe.");
+        exception.PegarMensagensDeErro().ShouldContain("Email já existe.");
             
     }
     

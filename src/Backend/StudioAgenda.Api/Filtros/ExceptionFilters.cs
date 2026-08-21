@@ -9,18 +9,24 @@ public class ExceptionFilters : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is ErrorOnValidationAgendaException errorOnValidationAgendaException)
+        if (context.Exception is StudioAgendaException studioAgendaException)
         {
-            context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            context.Result =
-                new BadRequestObjectResult(
-                    new RespostaErroJson((errorOnValidationAgendaException.PegarMensagensErro())));
+            var statusCode = (int)studioAgendaException.PegarStatusCode();
+
+            context.Result = new ObjectResult(
+                new RespostaErroJson(studioAgendaException.PegarMensagensDeErro()))
+            {
+                StatusCode = statusCode
+            };
         }
         else
         {
-            context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Result = new ObjectResult(new RespostaErroJson("Erro desconhecido."));
+            context.Result = new ObjectResult(new RespostaErroJson("Erro desconhecido."))
+            {
+                StatusCode = StatusCodes.Status500InternalServerError
+            };
         }
-            
+
+        context.ExceptionHandled = true;
     }
 }

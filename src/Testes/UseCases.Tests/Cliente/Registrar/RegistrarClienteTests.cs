@@ -34,7 +34,7 @@ public class RegistrarClienteTests
         var useCase = RegistrarClienteUseCase(leituraRepository);
         var result = async () => await useCase.Execute(request);
         var exception = await result.ShouldThrowAsync<ErrorOnValidationAgendaException>();
-        exception.PegarMensagensErro().ShouldContain("Telefone já existe.");
+        exception.PegarMensagensDeErro().ShouldContain("Telefone já existe.");
     }
 
     

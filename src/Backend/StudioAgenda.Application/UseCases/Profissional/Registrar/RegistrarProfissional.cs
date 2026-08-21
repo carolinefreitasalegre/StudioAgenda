@@ -29,7 +29,7 @@ public class RegistrarProfissional : IRegistrarProfissional
         await ValidarDadosEntrada(dados);
 
         var profissionalRegistrado = dados.Adapt<Domain.Entidades.Profissional>();
-        await HasSenha(profissionalRegistrado);
+         HasSenha(profissionalRegistrado);
         
         await _registrarProfissionalRepository.RegistrarProfissional(profissionalRegistrado);
         await _unitOfWork.Commit();
@@ -57,7 +57,7 @@ public class RegistrarProfissional : IRegistrarProfissional
         }
     }
     private async Task HasSenha(Domain.Entidades.Profissional dados)
-    {
+    { 
         dados.Senha = _senhaHash.HashSenha(dados.Senha);
     }
     

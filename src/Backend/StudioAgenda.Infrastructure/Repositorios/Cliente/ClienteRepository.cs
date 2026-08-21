@@ -21,11 +21,11 @@ internal class ClienteRepository : IRegistrarClienteReposirory, ILeituraClienteR
     
     public async Task<bool> ExisteUsuarioAtivoId(Guid id)
     {
-        return await _context.clientes.AnyAsync(cliente => cliente.Equals(id));
+        return await _context.clientes.AnyAsync(cliente => cliente.Telefone.Equals(id));
     }
 
     public async Task<Domain.Entidades.Cliente> ObterViaTelefone(string telefone)
     {
-        return await _context.clientes.FirstOrDefaultAsync(cliente => cliente.Equals(telefone));
+        return await _context.clientes.FirstOrDefaultAsync(cliente => cliente.Telefone.Equals(telefone));
     }
 }
