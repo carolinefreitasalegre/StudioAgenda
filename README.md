@@ -4,131 +4,72 @@ Sistema de gerenciamento para estúdios de manicure, desenvolvido com **.NET 8**
 
 > **Status:** Em desenvolvimento.
 
-## Objetivos
+---
 
-* Gerenciamento de clientes.
-* Gerenciamento de profissionais.
-* Cadastro de serviços.
-* Controle de agenda e horários disponíveis.
-* Agendamento de atendimentos.
-* Validação das regras de negócio.
-* Autenticação e autorização com JWT (em desenvolvimento).
+## Sumário
 
-## Tecnologias
+- [Visão Geral](#visão-geral)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Funcionalidades e Roadmap](#funcionalidades-e-roadmap)
+- [Como Executar o Projeto](#como-executar-o-projeto)
+- [Executando os Testes](#executando-os-testes)
+- [Licença](#licença)
 
-* .NET 8
-* ASP.NET Core Web API
-* Entity Framework Core
-* SQL Server
-* FluentValidation
-* Mapster
-* Docker
-* Swagger / OpenAPI
+---
 
-## Arquitetura
+## Visão Geral
 
-O projeto segue os princípios da **Clean Architecture**, separando responsabilidades em diferentes camadas.
+O **StudioAgenda** é uma solução voltada para o agendamento e a gestão de atendimentos em estúdios de beleza e manicures. O projeto foi projetado seguindo as melhores práticas de arquitetura de software, desacoplando regras de negócio, infraestrutura e camada de apresentação para facilitar a evolução e testes contínuos da aplicação.
+
+---
+
+## Tecnologias Utilizadas
+
+- **Linguagem & Framework:** .NET 8 (C#)
+- **Banco de Dados:** SQL Server
+- **ORMs / Acesso a Dados:** Entity Framework Core
+- **Documentação de API:** Swagger (OpenAPI)
+- **Criptografia / Segurança:** Argon2 (para cálculo seguro de hash de senhas)
+- **Containerização:** Docker e Docker Compose
+- **Testes & Dados Fictícios:** 
+  - xUnit / Moq (ou equivalente para testes unitários)
+  - Bogus (geração de massa de dados fictícios para testes)
+
+---
+
+
+## Desenvolvimento da Aplicação
+Ainda serão implementados sistema de mensageria para notificação de registros e uso do JWT para Tokens.
+
+---
+
+## Estrutura do Projeto
+
+O repositório está organizado em camadas para manter a separação de responsabilidades (Clean Architecture):
 
 ```text
 src/
-├── GerenciaStudio.API
-├── GerenciaStudio.Application
-├── GerenciaStudio.Domain
-├── GerenciaStudio.Exception
-└── GerenciaStudio.Infrastructure
+├── Backend/
+│   ├── StudioAgenda.Api           # Entry point / Controladores REST e documentação Swagger
+│   ├── StudioAgenda.Application   # Casos de uso e regras de aplicação
+│   ├── StudioAgenda.Domain        # Entidades, interfaces e regras de negócio
+│   └── StudioAgenda.Infrastructure# Acesso a dados (EF Core, SQL Server) e criptografia (Argon2)
+├── Shared/
+│   ├── StudioAgenda.Communication # DTOs de solicitação e resposta
+│   └── StudioAgenda.Exceptions    # Tratamento customizado de exceções
+└── Testes/
+    ├── CommonTestUtilities        # Utilitários e builders de dados para testes
+    ├── UseCases.Tests             # Testes unitários dos casos de uso
+    ├── Validacoes.Tests           # Testes unitários de validações
+    └── WebApi.Tests               # Testes das rotas e integrações da API
 
-```
 
-## Recursos previstos
 
-* Cadastro de clientes
-* Cadastro de profissionais
-* Cadastro de serviços
-* Cadastro de horários disponíveis
-* Agendamento de atendimentos
-* Consulta de agenda
-* Controle de disponibilidade
-* Autenticação com JWT
-* Documentação via Swagger
 
-## Tecnologias utilizadas
 
-| Tecnologia                 | Finalidade                        |
-| -------------------------- | --------------------------------- |
-| Entity Framework Core      | Persistência de dados             |
-| FluentValidation           | Validação das requisições         |
-| Mapster                    | Mapeamento entre DTOs e entidades |
-| SQL Server                 | Banco de dados                    |
-| Swagger                    | Documentação da API               |
-| Docker                     | Ambiente de desenvolvimento       |
-| JWT *(em desenvolvimento)* | Autenticação e autorização        |
 
-## Estrutura do projeto
 
-```text
-GerenciaStudio
-│
-├── src
-│   ├── GerenciaStudio.API
-│   ├── GerenciaStudio.Application
-│   ├── GerenciaStudio.Domain
-|   ├── GerenciaStudio.Exception
-│   └── GerenciaStudio.Infrastructure
-│
-└── docker-compose.yml
-```
 
-## Como executar
 
-### Pré-requisitos
 
-* .NET 8 SDK
-* Docker
-* SQL Server
-
-### Clonar o projeto
-
-```bash
-git clone https://github.com/carolinefreitasalegre/GerenciaStudio.git
-
-cd GerenciaStudio
-```
-
-### Executar o banco de dados
-
-```bash
-docker compose up -d
-```
-
-### Aplicar as migrations
-
-```bash
-dotnet ef database update
-```
-
-### Executar a aplicação
-
-```bash
-dotnet run --project src/GerenciaStudio.API
-```
-
-## Documentação da API
-
-Após iniciar a aplicação, a documentação poderá ser acessada pelo Swagger.
-
-```text
-https://localhost:{porta}/swagger
-```
-
-## Funcionalidades em desenvolvimento
-
-* Autenticação utilizando JWT
-* Controle de permissões
-* Refresh Token
-* Testes automatizados
-* Integração com envio de notificações
-* Melhorias nas regras de agendamento
-
-## Licença
-
-Este projeto está disponível para fins de estudo e desenvolvimento.
