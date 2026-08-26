@@ -16,7 +16,7 @@ public class RegistrarCliente : IRegistrarCliente
     private readonly ILeituraClienteRepository _leituraClienteRepository;
     private readonly ISenhaHash _senhaHash;
 
-    public RegistrarCliente( IUnitOfWork unitOfWork, IRegistrarClienteReposirory registrarCliente, ISenhaHash senhaHash, ILeituraClienteRepository leituraClienteRepository)
+    public RegistrarCliente(IUnitOfWork unitOfWork, IRegistrarClienteReposirory registrarCliente, ISenhaHash senhaHash, ILeituraClienteRepository leituraClienteRepository)
     {
         _unitOfWork = unitOfWork;
         _registrarCliente = registrarCliente;

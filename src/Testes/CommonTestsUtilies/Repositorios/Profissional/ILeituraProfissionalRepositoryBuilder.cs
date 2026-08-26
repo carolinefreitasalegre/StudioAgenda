@@ -18,6 +18,12 @@ public class ILeituraProfissionalRepositoryBuilder
         return this;
     }
 
+    public ILeituraProfissionalRepositoryBuilder BuscarProfissionalAtivoEmail(StudioAgenda.Domain.Entidades.Profissional profissional)
+    {
+        _mock.Setup(repo=> repo.ObterViaEmail(profissional.Email)).ReturnsAsync(profissional);
+        return this;
+    }
+
     public ILeituraProfissionalRepository Build()
     {
         return _mock.Object;

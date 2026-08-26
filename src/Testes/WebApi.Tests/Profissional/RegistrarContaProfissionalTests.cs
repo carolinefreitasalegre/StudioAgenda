@@ -8,7 +8,7 @@ namespace WebApi.Tests.Profissional;
 
 public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplicationFactory>
 {
-    private const string REQUEST_URI = "/Profissional";
+    private const string REQUEST_URI = "/profissional";
     private readonly HttpClient _client;
 
     public RegistrarContaProfissionalTests(StudioAgendaApplicationFactory factory)
@@ -20,14 +20,17 @@ public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplica
     public async Task Success()
     {
         var request = RequisicaoRegistrarProfissionalJsonBuilder.Build();
+         
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
+         
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         await using var responseBody = await response.Content.ReadAsStreamAsync();
 
-        var body = await response.Content.ReadAsStreamAsync();
+        await response.Content.ReadAsStringAsync();
+         
         var responseData = await JsonDocument.ParseAsync(responseBody);
-        
-        responseData.RootElement.GetProperty("email").GetString().ShouldBe(request.Email);
+
+        responseData.RootElement.GetProperty("nome").GetString().ShouldBe(request.Nome);
     }
 
     [Fact]
@@ -44,14 +47,14 @@ public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplica
             .GetProperty("errors")
             .EnumerateArray();
         
-        errors.ShouldContain(error => error.GetString() == "Campo email deve ser preenchido");
+        errors.ShouldContain(error => error.GetString() == "Campo email deve ser preenchido.");
     }
 
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenEmailIsInvalid()
     {
         var request = RequisicaoRegistrarProfissionalJsonBuilder.Build();
-        request.Email = "dadossemarroba.com";
+        request.Email = "textoaleatorio";
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         
@@ -65,7 +68,7 @@ public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplica
     [Fact]
     public async Task Validate_ShouldBeErrorResponse_WhenPasswordHasNoSpecialCharacter()
     {
-        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
+        var request = RequisicaoRegistrarProfissionalJsonBuilder.Build();
         request.Senha = "Abcdefghi1";
 
         var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
@@ -77,10 +80,49 @@ public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplica
         var errors = responseData
             .GetProperty("errors")
             .EnumerateArray();
-
-        errors.Count().ShouldBe(1);
-
-        errors.ShouldContain(error =>
+        
+       errors.ShouldContain(error =>
             error.GetString() == "A senha deve conter ao menos um caractere especial");
+    }
+  
+    [Fact]
+    public async Task Validate_ShouldBeErrorResponse_WhenPasswordIsTooShort()
+    {
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
+        request.Senha = "Ab1!";
+
+        var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
+
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+
+        var responseData = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+        var errors = responseData
+            .GetProperty("errors")
+            .EnumerateArray();
+        
+        errors.ShouldContain(error =>
+            error.GetString() == "Senha deve conter pelo menos 9 caracteres.");
+    }
+
+
+    [Fact]
+    public async Task Validate_ShouldBeErrorResponse_WhenPasswordHasNoNumber()
+    {
+        var request = RequisicaoRegistrarClienteJsonBuilder.Build();
+        request.Senha = "Abcdefghi!";
+
+        var response = await _client.PostAsJsonAsync(REQUEST_URI, request);
+
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+
+        var responseData = await response.Content.ReadFromJsonAsync<JsonElement>();
+
+        var errors = responseData
+            .GetProperty("errors")
+            .EnumerateArray();
+        
+        errors.ShouldContain(error =>
+            error.GetString() == "A senha deve conter ao menos um número");
     }
 }

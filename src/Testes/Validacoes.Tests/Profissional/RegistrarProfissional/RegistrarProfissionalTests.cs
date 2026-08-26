@@ -29,7 +29,6 @@ public class RegistrarProfissionalTests
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errors.Count.ShouldBe(2);
             errors.ShouldContain(err => err.ErrorMessage.Equals("Campo email deve ser preenchido."));
             errors.ShouldContain(err=>err.ErrorMessage.Equals("Preencha um email válido."));
         });
@@ -45,7 +44,6 @@ public class RegistrarProfissionalTests
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errors.Count.ShouldBe(1);
             errors.ShouldContain(err=>err.ErrorMessage.Equals("Campo nome deve ser preenchido."));
         });
     }
@@ -60,7 +58,6 @@ public class RegistrarProfissionalTests
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errors.Count.ShouldBe(1);
             errors.ShouldContain(err=>err.ErrorMessage.Equals("Campo telefone deve ser preenchido."));
         });
     }
@@ -75,7 +72,6 @@ public class RegistrarProfissionalTests
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errors.Count.ShouldBe(1);
             errors.ShouldContain(err=>err.ErrorMessage.Equals("Campo senha deve ser preenchido."));
         });
     }

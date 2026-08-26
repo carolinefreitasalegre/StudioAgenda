@@ -2,10 +2,8 @@ using StudioAgenda.Domain.Enums;
 
 namespace StudioAgenda.Domain.Entidades;
 
-public class Agenda
+public class Agenda : Entity
 {
-    public Guid Id { get; set; }
-
     public Guid ClienteId { get; set; }
     public virtual Cliente Cliente { get; set; } 
 

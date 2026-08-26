@@ -14,7 +14,7 @@ public class ValidacaoUsuarioBase<T> : AbstractValidator<T> where T : UsuarioBas
         When(usuario => string.IsNullOrWhiteSpace(usuario.Senha) == false, () =>
         {
             RuleFor(usuario => usuario.Senha)
-                .MinimumLength(9).WithMessage("Senhe deve conter pelo menos 9 caracteres.")
+                .MinimumLength(9).WithMessage("Senha deve conter pelo menos 9 caracteres.")
                 .MaximumLength(100).WithMessage("Senha não pode conter mais de 100 caracteres.")
                 .Matches(@"[A-Za-z]").WithMessage("A senha deve conter letras")
                 .Matches(@"\d").WithMessage("A senha deve conter ao menos um número")
