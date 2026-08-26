@@ -7,7 +7,7 @@ using Shouldly;
 namespace WebApi.Tests.Cliente.RegistrarCliente;
 
 public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactory>{
-     private const string REQUEST_URI = "/agenda";
+     private const string REQUEST_URI = "/Cliente";
      private readonly HttpClient _client;
      
      public RegistrarClienteTests(StudioAgendaApplicationFactory factory)
@@ -24,7 +24,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
          response.StatusCode.ShouldBe(HttpStatusCode.Created);
          await using var responseBody = await response.Content.ReadAsStreamAsync();
 
-         var body = await response.Content.ReadAsStringAsync();
+         await response.Content.ReadAsStringAsync();
          
          var responseData = await JsonDocument.ParseAsync(responseBody);
 
@@ -74,7 +74,7 @@ public class RegistrarClienteTests : IClassFixture<StudioAgendaApplicationFactor
         errors.Count().ShouldBe(1);
 
         errors.ShouldContain(error =>
-            error.GetString() == "Senhe deve conter pelo menos 9 caracteres.");
+            error.GetString() == "Senha deve conter pelo menos 9 caracteres.");
     }
 
 

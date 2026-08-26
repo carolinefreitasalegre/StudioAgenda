@@ -9,7 +9,7 @@ namespace StudioAgenda.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class AutenticacaoController : ControllerBase
     {
         [HttpPost("login-profissional")]
         [ProducesResponseType(typeof(RespostaRegistroProfissionalJson), StatusCodes.Status200OK)]

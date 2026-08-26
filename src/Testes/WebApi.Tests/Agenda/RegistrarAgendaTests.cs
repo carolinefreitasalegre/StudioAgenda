@@ -10,7 +10,7 @@ namespace WebApi.Tests.Agenda;
 
 public class RegistrarAgendaTests : IClassFixture<StudioAgendaApplicationFactory>
 {
-    private const string REQUEST_URI = "/agenda";
+    private const string REQUEST_URI = "/Agenda";
     private readonly HttpClient _client;
     private readonly StudioAgendaApplicationFactory _factory;
 
@@ -58,7 +58,7 @@ public class RegistrarAgendaTests : IClassFixture<StudioAgendaApplicationFactory
 
         var responseData = await response.Content.ReadFromJsonAsync<JsonElement>();
         
-        var errors = responseData.GetProperty("erros").EnumerateArray();
+        var errors = responseData.GetProperty("errors").EnumerateArray();
         
         errors.Count().ShouldBe(1);
         errors.ShouldContain(err => err.GetString() == "Selecione a profissional desejada.");

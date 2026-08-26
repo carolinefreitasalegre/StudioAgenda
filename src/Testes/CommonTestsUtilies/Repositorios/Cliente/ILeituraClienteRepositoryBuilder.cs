@@ -1,11 +1,12 @@
 using Moq;
+using StudioAgenda.Domain.Entidades;
 using StudioAgenda.Domain.Repositorios;
 
 namespace CommonTestsUtilies.Repositorios;
 
 public class ILeituraClienteRepositoryBuilder
 {
-    private readonly  Mock<ILeituraClienteRepository> _mock;
+    private readonly Mock<ILeituraClienteRepository> _mock;
 
     public ILeituraClienteRepositoryBuilder()
     {
@@ -17,6 +18,13 @@ public class ILeituraClienteRepositoryBuilder
         _mock.Setup(repositorio => repositorio.ExisteUsuarioAtivoTelefone(telefone)).ReturnsAsync(true);
         return this;
     }
+
+    public ILeituraClienteRepositoryBuilder ObterViaTelefone(Cliente cliente)
+    {
+        _mock.Setup(repositorio => repositorio.ObterViaTelefone(cliente.Telefone)).ReturnsAsync(cliente);
+        return this;
+    }
+
 
     public ILeituraClienteRepository Build()
     {
