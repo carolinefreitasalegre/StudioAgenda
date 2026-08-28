@@ -3,5 +3,5 @@ namespace StudioAgenda.Communication.Respostas;
 public class RespostaRegistroUsuarioJson
 {
     public string Nome { get; set; }
-    public RespostaTokensJson Type { get; set; } = new RespostaTokensJson();
+    public RespostaTokensJson Token { get; set; } = new RespostaTokensJson();
 }

@@ -21,8 +21,8 @@ public class LoginClienteComTelefoneTests
 
         result.ShouldNotBeNull();
         result.Nome.ShouldBe(cliente.Nome);
-        result.Type.TokenAcesso.ShouldNotBeNull();
-        result.Type.RecarregarToken.ShouldNotBeNull();
+        result.Token.TokenAcesso.ShouldNotBeNull();
+        result.Token.RecarregarToken.ShouldNotBeNull();
     }
 
     [Fact]

@@ -25,14 +25,10 @@ if (!app.Environment.IsEnvironment("Tests"))
     app.UseHttpsRedirection();
 }
 
-
 //aqui o autorization
 app.MapControllers();
 
-
 app.Run();
 
-
 //partial é para fazer uma fusao com a classe criada e a class gerada 
-
 public partial class Program{}  

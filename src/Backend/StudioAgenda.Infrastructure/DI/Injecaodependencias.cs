@@ -5,10 +5,12 @@ using StudioAgenda.Domain.Repositorios;
 using StudioAgenda.Domain.Repositorios.Agenda;
 using StudioAgenda.Domain.Repositorios.Profissional;
 using StudioAgenda.Domain.Seguranca.SenhaHash;
+using StudioAgenda.Domain.Seguranca.Tokens;
 using StudioAgenda.Infrastructure.Repositorios;
 using StudioAgenda.Infrastructure.Repositorios.Agenda;
 using StudioAgenda.Infrastructure.Repositorios.Cliente;
 using StudioAgenda.Infrastructure.Seguranca.SenhaHash;
+using StudioAgenda.Infrastructure.Seguranca.Tokens;
 
 namespace StudioAgenda.Infrastructure;
 
@@ -30,7 +32,8 @@ public static class Injecaodependencias
         servise.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
         servise.AddScoped<ILeituraAgendaRepository, AgendaRepository>();
         servise.AddScoped<ISenhaHash, Argon2SenhaHash>();
-    }
+
+       }
 
     private static void AddDbContext_SqlServer(IServiceCollection servise, IConfiguration configuration)
     {
@@ -39,6 +42,14 @@ public static class Injecaodependencias
         servise.AddDbContext<StudioAgendaDbContext>(options =>
         {
             options.UseSqlServer(connectionString);
+        });
+        
+        servise.AddScoped<IAccessTokenGernerator>(provider =>
+        {
+            var expirationTime = configuration.GetValue<uint>("Jwt:ExpirationTimeMinutes");
+            var signingKey = configuration.GetValue<string>("Jwt:SigningKey")!;
+            
+            return new JwtTokenHandler(expirationTime, signingKey);
         });
     }
 }
