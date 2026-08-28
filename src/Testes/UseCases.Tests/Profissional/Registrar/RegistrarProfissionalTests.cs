@@ -20,8 +20,8 @@ public class RegistrarProfissionalTests
         
         result.ShouldNotBeNull();
         result.Nome.ShouldBe(request.Nome);
-        result.Type.TokenAcesso.ShouldNotBeNull();
-        result.Type.RecarregarToken.ShouldNotBeNull();
+        result.Token.TokenAcesso.ShouldNotBeNull();
+        result.Token.RecarregarToken.ShouldNotBeNull();
     }
 
     [Fact]
@@ -41,11 +41,12 @@ public class RegistrarProfissionalTests
     
     private RegistrarProfissional RegistrarProfissionalUseCase( ILeituraProfissionalRepository leituraRepository)
     {
+        var accessToken = IAccessTokenProfissionalGeneratorBuilder.Build();
         var unitOfWork = IUnitOfWorkBuilder.Build();
         var registrarRepository = IProfissionalRepositoryBuilder.Build();
         var senhaHash = new ISenhaHashBuilder().Build();
         
-        return new RegistrarProfissional(unitOfWork, registrarRepository, leituraRepository, senhaHash);
+        return new RegistrarProfissional(unitOfWork, registrarRepository, leituraRepository, senhaHash, accessToken);
     } 
     
 }

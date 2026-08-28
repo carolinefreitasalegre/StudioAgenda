@@ -19,8 +19,8 @@ public class RegistrarClienteTests
 
         result.ShouldNotBeNull();
         result.Nome.ShouldBe(request.Nome);
-        result.Type.TokenAcesso.ShouldNotBeNull();
-        result.Type.RecarregarToken.ShouldNotBeNull();
+        result.Token.TokenAcesso.ShouldNotBeNull();
+        result.Token.RecarregarToken.ShouldNotBeNull();
     }
 
     [Fact]
@@ -40,10 +40,11 @@ public class RegistrarClienteTests
     
     private RegistrarCliente RegistrarClienteUseCase(ILeituraClienteRepository clienteRepository)
     {
+        var accessToken = IAccessTokenClienteGeneratorBuilder.Build();
         var unitOfWork = IUnitOfWorkBuilder.Build();
         var registrarRepository = IClienteRepositoryBuilder.Build();
         var senhaHash = new ISenhaHashBuilder().Build();
         
-        return new RegistrarCliente(unitOfWork, registrarRepository, senhaHash, clienteRepository);
+        return new RegistrarCliente(unitOfWork, registrarRepository, senhaHash, clienteRepository, accessToken);
     }
 }

@@ -5,6 +5,7 @@ using StudioAgenda.Domain.Dtos.Requisicoes;
 using StudioAgenda.Domain.Repositorios;
 using StudioAgenda.Domain.Repositorios.Profissional;
 using StudioAgenda.Domain.Seguranca.SenhaHash;
+using StudioAgenda.Domain.Seguranca.Tokens;
 using StudioAgenda.Exceptions.ExceptionsBase;
 
 namespace StudioAgenda.Application.UseCases.Profissional.Registrar;
@@ -15,13 +16,16 @@ public class RegistrarProfissional : IRegistrarProfissional
     private readonly IRegistrarProfissionalRepository _registrarProfissionalRepository;
     private readonly ILeituraProfissionalRepository _leituraProfissionalRepository;
     private readonly ISenhaHash _senhaHash;
+    private readonly IAccessTokenGernerator _tokenGernerator;
 
-    public RegistrarProfissional(IUnitOfWork unitOfWork, IRegistrarProfissionalRepository registrarProfissionalRepository, ILeituraProfissionalRepository leituraProfissionalRepository, ISenhaHash senhaHash)
+    public RegistrarProfissional(IUnitOfWork unitOfWork, IRegistrarProfissionalRepository registrarProfissionalRepository, ILeituraProfissionalRepository leituraProfissionalRepository, 
+        ISenhaHash senhaHash, IAccessTokenGernerator tokenGernerator)
     {
         _unitOfWork = unitOfWork;
         _registrarProfissionalRepository = registrarProfissionalRepository;
         _leituraProfissionalRepository = leituraProfissionalRepository;
         _senhaHash = senhaHash;
+        _tokenGernerator = tokenGernerator;
     }
     
     public async Task<RespostaRegistroProfissionalJson> Execute(RequisicaoRegistrarProfissional dados)
@@ -34,7 +38,15 @@ public class RegistrarProfissional : IRegistrarProfissional
         await _registrarProfissionalRepository.RegistrarProfissional(profissionalRegistrado);
         await _unitOfWork.Commit();
         
-        return profissionalRegistrado.Adapt<RespostaRegistroProfissionalJson>();
+        // return profissionalRegistrado.Adapt<RespostaRegistroProfissionalJson>();
+        return new RespostaRegistroProfissionalJson
+        {
+            Nome = profissionalRegistrado.Nome,
+            Token = new RespostaTokensJson
+            {
+                TokenAcesso = _tokenGernerator.Generator(profissionalRegistrado),
+            }
+        };
     }
 
     private async Task ValidarDadosEntrada(RequisicaoRegistrarProfissional dados)
