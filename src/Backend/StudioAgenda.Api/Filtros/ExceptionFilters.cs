@@ -21,7 +21,7 @@ public class ExceptionFilters : IExceptionFilter
         }
         else
         {
-            context.Result = new ObjectResult(new RespostaErroJson("Erro desconhecido."))
+            context.Result = new ObjectResult(new RespostaErroJson(["Erro desconhecido."]))
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };

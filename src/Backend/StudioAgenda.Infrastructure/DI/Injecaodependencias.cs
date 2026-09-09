@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StudioAgenda.Domain.Identidade;
 using StudioAgenda.Domain.Repositorios;
 using StudioAgenda.Domain.Repositorios.Agenda;
 using StudioAgenda.Domain.Repositorios.Profissional;
 using StudioAgenda.Domain.Seguranca.SenhaHash;
 using StudioAgenda.Domain.Seguranca.Tokens;
+using StudioAgenda.Infrastructure.Identidade;
 using StudioAgenda.Infrastructure.Repositorios;
 using StudioAgenda.Infrastructure.Repositorios.Agenda;
 using StudioAgenda.Infrastructure.Repositorios.Cliente;
@@ -16,40 +18,43 @@ namespace StudioAgenda.Infrastructure;
 
 public static class Injecaodependencias
 {
-    public static void AddInfrastructure(this IServiceCollection servie, IConfiguration configuration)
+    public static void AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
     {
-        AddRepositorios(servie);
-        AddDbContext_SqlServer(servie, configuration);
+        AddRepositorios(service);
+        AddDbContext_SqlServer(service, configuration);
     }
 
-    private static void AddRepositorios(this IServiceCollection servise)
+    private static void AddRepositorios(this IServiceCollection service)
     {
-        servise.AddScoped<IUnitOfWork, UnitOfWork>();
-        servise.AddScoped<IRegistrarClienteReposirory, ClienteRepository>();
-        servise.AddScoped<ILeituraClienteRepository, ClienteRepository>();
-        servise.AddScoped<IRegistrarProfissionalRepository, ProfissionalRepository>();
-        servise.AddScoped<ILeituraProfissionalRepository, ProfissionalRepository>();
-        servise.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
-        servise.AddScoped<ILeituraAgendaRepository, AgendaRepository>();
-        servise.AddScoped<ISenhaHash, Argon2SenhaHash>();
+        service.AddScoped<IUnitOfWork, UnitOfWork>();
+        service.AddScoped<IRegistrarClienteReposirory, ClienteRepository>();
+        service.AddScoped<ILeituraClienteRepository, ClienteRepository>();
+        service.AddScoped<IRegistrarProfissionalRepository, ProfissionalRepository>();
+        service.AddScoped<ILeituraProfissionalRepository, ProfissionalRepository>();
+        service.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
+        service.AddScoped<ILeituraAgendaRepository, AgendaRepository>();
+        service.AddScoped<ISenhaHash, Argon2SenhaHash>();
+        service.AddScoped<IUsuarioLogado, UsuarioLogado>();
 
        }
 
-    private static void AddDbContext_SqlServer(IServiceCollection servise, IConfiguration configuration)
+    private static void AddDbContext_SqlServer(IServiceCollection service, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("SqlServer");
 
-        servise.AddDbContext<StudioAgendaDbContext>(options =>
+        service.AddDbContext<StudioAgendaDbContext>(options =>
         {
             options.UseSqlServer(connectionString);
         });
         
-        servise.AddScoped<IAccessTokenGernerator>(provider =>
+        service.AddScoped<IAccessTokenGernerator>(provider =>
         {
             var expirationTime = configuration.GetValue<uint>("Jwt:ExpirationTimeMinutes");
             var signingKey = configuration.GetValue<string>("Jwt:SigningKey")!;
             
             return new JwtTokenHandler(expirationTime, signingKey);
         });
+
+        
     }
 }
