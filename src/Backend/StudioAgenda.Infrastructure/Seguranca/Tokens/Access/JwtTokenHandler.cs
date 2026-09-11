@@ -18,26 +18,62 @@ internal sealed class JwtTokenHandler : IAccessTokenGernerator
         _signinKey = signinKey;
     }
 
-    public string Generator(UsuarioBase usuario)
-    {
-        var claims = new List<Claim>
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
-        };
-        
-        var tokendescription = new SecurityTokenDescriptor
-        {
-            Expires =  DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-            SigningCredentials = new SigningCredentials(Credentials(), SecurityAlgorithms.HmacSha256Signature),
-            Subject = new ClaimsIdentity(claims)
-        };
-
-        var handler = new JsonWebTokenHandler();
-        return handler.CreateToken(tokendescription);
-    }
+    // public string Generator(UsuarioBase usuario)
+    // {
+    //     var claims = new List<Claim>
+    //     {
+    //         new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
+    //     };
+    //     
+    //     var tokendescription = new SecurityTokenDescriptor
+    //     {
+    //         Expires =  DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
+    //         SigningCredentials = new SigningCredentials(Credentials(), SecurityAlgorithms.HmacSha256Signature),
+    //         Subject = new ClaimsIdentity(claims)
+    //     };
+    //
+    //     var handler = new JsonWebTokenHandler();
+    //     return handler.CreateToken(tokendescription);
+    // }
 
     private SymmetricSecurityKey Credentials()
     {
         return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_signinKey));
+    }
+
+    public string GeneratorCliente(Cliente cliente)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, cliente.Id.ToString()),
+        };
+
+        var tokenescription = new SecurityTokenDescriptor
+        {
+            Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
+            SigningCredentials = new SigningCredentials(Credentials(), SecurityAlgorithms.HmacSha256Signature),
+            Subject = new ClaimsIdentity(claims)
+        };
+        
+        var handler = new JsonWebTokenHandler();
+        return handler.CreateToken(tokenescription);
+    }
+
+    public string GeneratorProfissional(Profissional profissional)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, profissional.Id.ToString()),
+        };
+
+        var tokenescription = new SecurityTokenDescriptor
+        {
+            Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
+            SigningCredentials = new SigningCredentials(Credentials(), SecurityAlgorithms.HmacSha256Signature),
+            Subject = new ClaimsIdentity(claims)
+        };
+        
+        var handler = new JsonWebTokenHandler();
+        return handler.CreateToken(tokenescription);
     }
 }
