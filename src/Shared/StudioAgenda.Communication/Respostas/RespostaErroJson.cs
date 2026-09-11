@@ -7,11 +7,10 @@ public class RespostaErroJson
 
     public RespostaErroJson(IList<string> errors) => Errors = errors;
 
-    public RespostaErroJson(string error)
+    public RespostaErroJson(string error,  bool tokenIsExpired)
     {
-        Errors = new List<string>
-        {
-            error
-        };
+        Errors = [error];
+        TokenIsExpired = tokenIsExpired;
+      
     }
 }

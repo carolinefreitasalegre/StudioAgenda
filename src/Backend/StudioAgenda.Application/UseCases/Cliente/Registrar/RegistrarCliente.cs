@@ -44,7 +44,7 @@ public class RegistrarCliente : IRegistrarCliente
             Nome = clienteRegistrado.Nome,
             Token = new RespostaTokensJson
             {
-                TokenAcesso = _tokenGernerator.Generator(clienteRegistrado)
+                TokenAcesso = _tokenGernerator.GeneratorCliente(clienteRegistrado)
             }
         };
     }

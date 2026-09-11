@@ -44,7 +44,7 @@ public class RegistrarProfissional : IRegistrarProfissional
             Nome = profissionalRegistrado.Nome,
             Token = new RespostaTokensJson
             {
-                TokenAcesso = _tokenGernerator.Generator(profissionalRegistrado),
+                TokenAcesso = _tokenGernerator.GeneratorProfissional(profissionalRegistrado),
             }
         };
     }
