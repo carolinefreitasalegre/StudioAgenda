@@ -9,9 +9,17 @@ public class Agenda : Entity
 
     public Guid ProfissionalId { get; set; }
     public virtual Profissional Profissional { get; set; } 
+    
+    public DateOnly Data { get; set; }
+    public TimeOnly HoraInicio { get; set; }
+    //public TimeOnly? DuracaoMinuto;
+    //verificar regra para possibilidade de selecionar serviço e poder selecionar mais deum um, sendo assim, cada um soma 30min
 
-    public DateTime DataHora { get; set; }
-
+    public TimeOnly HoraFim
+    {
+        get => HoraInicio.AddMinutes(30);
+    }
+    
     public string? Servico { get; set; }
     public decimal? Valor { get; set; }
 

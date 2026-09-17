@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudioAgenda.Infrastructure;
 
@@ -11,9 +12,11 @@ using StudioAgenda.Infrastructure;
 namespace StudioAgenda.Infrastructure.Migrations
 {
     [DbContext(typeof(StudioAgendaDbContext))]
-    partial class StudioAgendaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260916163615_AtualizacaoTipCompTabAgenda")]
+    partial class AtualizacaoTipCompTabAgenda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,14 +34,17 @@ namespace StudioAgenda.Infrastructure.Migrations
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateOnly>("Data")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DuracaoMinuto")
+                        .HasColumnType("int");
+
                     b.Property<TimeOnly>("HoraInicio")
-                        .HasColumnType("time");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProfissionalId")
                         .HasColumnType("uniqueidentifier");

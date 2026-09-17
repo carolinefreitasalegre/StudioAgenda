@@ -13,9 +13,9 @@ public class PerfilProfissionalUseCase : IPerfilProfissionalUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<RespostaPerfilUsuario> Execute()
+    public async Task<RespostaPerfilUsuarioJson> Execute()
     {
         var usuarioLogado = await _usuarioLogado.PegarProfissional();
-        return usuarioLogado.Adapt<RespostaPerfilUsuario>();
+        return usuarioLogado.Adapt<RespostaPerfilUsuarioJson>();
     }
 }

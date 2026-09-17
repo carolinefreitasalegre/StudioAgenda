@@ -66,41 +66,45 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnTokenValidated = async context =>
             {
-                //profissional
-                var profissionalId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
-                    ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
-                
-                
-                if (Guid.TryParse(profissionalId, out var profId) == false)
+                var userId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                             ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (Guid.TryParse(userId, out var id) == false)
                 {
-                    context.Fail("Invalid token object");
+                    context.Fail("Token invélido");
                     return;
                 }
 
-                var profissionalRepository = context.HttpContext.RequestServices.GetRequiredService<ILeituraProfissionalRepository>();
-                
-                var existeProfissional = await profissionalRepository.ExisteProfissionalAtivoId(profId);
-                if(existeProfissional == false)
-                    context.Fail("User not found or inactive");
-                
-                //cliente
-                
-                var clienteId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub) 
-                                ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
-                
-                if (Guid.TryParse(clienteId, out var cliId) == false)
-                {
-                    context.Fail("Invalid token object");
-                    return;
-                }
-                
-                var userRepository = context.HttpContext.RequestServices.GetRequiredService<ILeituraClienteRepository>();
+                var tipoUsuario = context.Principal?.FindFirstValue(ClaimTypes.Role);
 
-                var existeCliente = await userRepository.ExisteUsuarioAtivoId(cliId);
-                if (existeCliente == false)
-                    context.Fail("User not found or inactive");
-                
-                
+                switch (tipoUsuario)
+                {
+                    case "Profissional":
+                    {
+                        var profissionalRepository = context.HttpContext.RequestServices
+                            .GetRequiredService<ILeituraProfissionalRepository>();
+
+                        var existeProfissional = await profissionalRepository.ExisteProfissionalAtivoId(id);
+                        if (!existeProfissional)
+                            context.Fail("Usuário nao encontrado ou inátivo");
+
+                        break;
+                    }
+                    case "Cliente":
+                    {
+                        var userRepository = context.HttpContext.RequestServices
+                            .GetRequiredService<ILeituraClienteRepository>();
+
+                        var existeCliente = await userRepository.ExisteUsuarioAtivoId(id);
+                        if (!existeCliente)
+                            context.Fail("Usuário não encontrado ou inátivo");
+
+                        break;
+                    }
+                    default:
+                        context.Fail("Token inválido");
+                        break;
+                }
             },
             
             OnChallenge = async context =>

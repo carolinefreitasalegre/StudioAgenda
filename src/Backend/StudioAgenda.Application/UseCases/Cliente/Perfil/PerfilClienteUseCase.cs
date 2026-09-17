@@ -13,9 +13,13 @@ public class PerfilClienteUseCase : IPerfilClienteUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<RespostaPerfilUsuario> Execute()
+    public async Task<RespostaPerfilUsuarioJson> Execute()
     {
         var usuarioLogado = await _usuarioLogado.PegarCliente();
-        return usuarioLogado.Adapt<RespostaPerfilUsuario>();
+        return new RespostaPerfilUsuarioJson
+        {
+            Nome = usuarioLogado.Nome,
+            Telefone = usuarioLogado.Telefone
+        };
     }
 }

@@ -46,6 +46,7 @@ internal sealed class JwtTokenHandler : IAccessTokenGernerator
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, cliente.Id.ToString()),
+            new Claim(ClaimTypes.Role, "Cliente")
         };
 
         var tokenescription = new SecurityTokenDescriptor
@@ -64,6 +65,7 @@ internal sealed class JwtTokenHandler : IAccessTokenGernerator
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, profissional.Id.ToString()),
+            new Claim(ClaimTypes.Role, "Profissional")
         };
 
         var tokenescription = new SecurityTokenDescriptor

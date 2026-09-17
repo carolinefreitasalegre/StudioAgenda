@@ -21,4 +21,9 @@ internal class AgendaRepository : IRegistrarAgendaRepository, ILeituraAgendaRepo
     {
         return await _context.agendas.AnyAsync();
     }
+
+    public async Task<IReadOnlyList<Domain.Entidades.Agenda?>> Agenda(Guid id)
+    {
+        return await _context.agendas.Where(x => x.ClienteId == id).ToListAsync();
+    }
 }
