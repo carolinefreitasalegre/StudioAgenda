@@ -1,6 +1,6 @@
 namespace StudioAgenda.Communication.Respostas;
 
-public class RespostaPerfilUsuario
+public class RespostaPerfilUsuarioJson
 {
     public Guid Id { get; private set; }
     public string Nome { get; set; }

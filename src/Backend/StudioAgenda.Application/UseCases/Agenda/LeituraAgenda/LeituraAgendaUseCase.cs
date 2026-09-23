@@ -19,7 +19,7 @@ public class LeituraAgendaUseCase : ILeituraAgendaUseCase
     public async Task<IReadOnlyList<RespostaRegistroAgendaJson>> Execute()
     {
         var usuario = await _usuarioLogado.PegarCliente();
-        var agenda = await _repository.Agenda(usuario.Id);
+        var agenda = await _repository.AgendaPorId(usuario.Id);
    
         return agenda.Adapt<IReadOnlyList<RespostaRegistroAgendaJson>>();
     }

@@ -2,6 +2,7 @@ using Mapster;
 using StudioAgenda.Application.Validacoes;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;
+using StudioAgenda.Domain.Enums;
 using StudioAgenda.Domain.Identidade;
 using StudioAgenda.Domain.Repositorios;
 using StudioAgenda.Domain.Repositorios.Agenda;
@@ -13,13 +14,16 @@ public class RegistrarAgenda : IRegistrarAgenda
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRegistrarAgendaRepository _repository;
+    private readonly ILeituraAgendaRepository _leituraAgendaRepository;
     private readonly IUsuarioLogado _usuarioLogado;
 
-    public RegistrarAgenda(IUnitOfWork unitOfWork, IRegistrarAgendaRepository repository, IUsuarioLogado usuarioLogado)
+    public RegistrarAgenda(IUnitOfWork unitOfWork, IRegistrarAgendaRepository repository, 
+        IUsuarioLogado usuarioLogado, ILeituraAgendaRepository leituraAgendaRepository)
     {
         _unitOfWork = unitOfWork;
         _repository = repository;
         _usuarioLogado = usuarioLogado;
+        _leituraAgendaRepository = leituraAgendaRepository;
     }
 
     public async Task<RespostaRegistroAgendaJson> Execute(RequisicaoRegistrarAgenda dados)
@@ -42,7 +46,23 @@ public class RegistrarAgenda : IRegistrarAgenda
     private async Task ValidarDadosEntrada(RequisicaoRegistrarAgenda dados)
     {
         var validator = new ValidacaoRegistrarAgenda();
+        
         var resultado = await validator.ValidateAsync(dados);
+
+        var duracao = ObterDuracaoEmMinutos(dados.Servico);
+        
+        var inicio = dados.HoraInicio;
+        var fim = dados.HoraInicio.AddMinutes(duracao);
+        
+        dados.HoraFim =  fim;
+   
+        var existeConflito = await _leituraAgendaRepository.ExisteConflito(inicio, fim);
+
+        if (existeConflito)
+        {
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(
+                string.Empty, "Escolha um horário disponível."));
+        }
         
         if (!resultado.IsValid)
         {
@@ -52,4 +72,10 @@ public class RegistrarAgenda : IRegistrarAgenda
         }
        
     }
+
+    private static int ObterDuracaoEmMinutos(EServicos servico) => servico switch
+    {
+        EServicos.ComboPeMao => 60,
+        _ => 30
+    };
 }

@@ -37,14 +37,17 @@ namespace StudioAgenda.Infrastructure.Migrations
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<TimeOnly>("HoraFim")
+                        .HasColumnType("time");
+
                     b.Property<TimeOnly>("HoraInicio")
                         .HasColumnType("time");
 
                     b.Property<Guid>("ProfissionalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Servico")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Servico")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

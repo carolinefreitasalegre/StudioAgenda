@@ -12,8 +12,8 @@ using StudioAgenda.Infrastructure;
 namespace StudioAgenda.Infrastructure.Migrations
 {
     [DbContext(typeof(StudioAgendaDbContext))]
-    [Migration("20260916161324_AtualizacaoTabAgenda")]
-    partial class AtualizacaoTabAgenda
+    [Migration("20260917001618_ModComponenteTabAgenda")]
+    partial class ModComponenteTabAgenda
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,26 +34,20 @@ namespace StudioAgenda.Infrastructure.Migrations
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DuracaoMinuto")
-                        .HasColumnType("int");
-
-                    b.Property<TimeOnly>("HoraFim")
-                        .HasColumnType("datetime2");
-
                     b.Property<TimeOnly>("HoraInicio")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("time");
 
                     b.Property<Guid>("ProfissionalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Servico")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Servico")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

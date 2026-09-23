@@ -31,12 +31,11 @@ public static class Injecaodependencias
         service.AddScoped<ILeituraClienteRepository, ClienteRepository>();
         service.AddScoped<IRegistrarProfissionalRepository, ProfissionalRepository>();
         service.AddScoped<ILeituraProfissionalRepository, ProfissionalRepository>();
-        service.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
         service.AddScoped<ILeituraAgendaRepository, AgendaRepository>();
+        service.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
         service.AddScoped<ISenhaHash, Argon2SenhaHash>();
         service.AddScoped<IUsuarioLogado, UsuarioLogado>();
-
-       }
+    }
 
     private static void AddDbContext_SqlServer(IServiceCollection service, IConfiguration configuration)
     {
