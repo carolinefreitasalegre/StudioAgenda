@@ -15,6 +15,7 @@ public class HttpContextTokenProvider : IAccessTokenProvider
     public string PegarToken()
     {
         var accessToken = _httpContextAccessor.HttpContext.Request.Headers.Authorization.ToString();
-        return accessToken;
+        return accessToken.StartsWith("Bearer ")
+            ? accessToken["Bearer ".Length..] : accessToken;
     }
 }

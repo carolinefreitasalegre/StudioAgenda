@@ -4,5 +4,5 @@ namespace StudioAgenda.Application.UseCases.Cliente.Perfil;
 
 public interface IPerfilClienteUseCase
 {
-    Task<RespostaPerfilUsuario> Execute();
+    Task<RespostaPerfilUsuarioJson> Execute();
 }

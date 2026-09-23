@@ -2,6 +2,8 @@ using Mapster;
 using StudioAgenda.Application.Validacoes;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;
+using StudioAgenda.Domain.Enums;
+using StudioAgenda.Domain.Identidade;
 using StudioAgenda.Domain.Repositorios;
 using StudioAgenda.Domain.Repositorios.Agenda;
 using StudioAgenda.Exceptions.ExceptionsBase;
@@ -12,20 +14,30 @@ public class RegistrarAgenda : IRegistrarAgenda
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRegistrarAgendaRepository _repository;
-   // private readonly ILeituraAgendaRepository _leituraAgendaRepository;
+    private readonly ILeituraAgendaRepository _leituraAgendaRepository;
+    private readonly IUsuarioLogado _usuarioLogado;
 
-    public RegistrarAgenda(IUnitOfWork unitOfWork, IRegistrarAgendaRepository repository)
+    public RegistrarAgenda(IUnitOfWork unitOfWork, IRegistrarAgendaRepository repository, 
+        IUsuarioLogado usuarioLogado, ILeituraAgendaRepository leituraAgendaRepository)
     {
         _unitOfWork = unitOfWork;
         _repository = repository;
+        _usuarioLogado = usuarioLogado;
+        _leituraAgendaRepository = leituraAgendaRepository;
     }
 
     public async Task<RespostaRegistroAgendaJson> Execute(RequisicaoRegistrarAgenda dados)
     {
         await ValidarDadosEntrada(dados);
+    
+        var id = await _usuarioLogado.PegarCliente();
+  
         var agendaRegistrada = dados.Adapt<Domain.Entidades.Agenda>();
-        
+     
+        agendaRegistrada.ClienteId = id.Id;
+      
         await _repository.RegistrarAgenda(agendaRegistrada);
+     
         await _unitOfWork.Commit();
         
         return agendaRegistrada.Adapt<RespostaRegistroAgendaJson>();
@@ -34,7 +46,23 @@ public class RegistrarAgenda : IRegistrarAgenda
     private async Task ValidarDadosEntrada(RequisicaoRegistrarAgenda dados)
     {
         var validator = new ValidacaoRegistrarAgenda();
+        
         var resultado = await validator.ValidateAsync(dados);
+
+        var duracao = ObterDuracaoEmMinutos(dados.Servico);
+        
+        var inicio = dados.HoraInicio;
+        var fim = dados.HoraInicio.AddMinutes(duracao);
+        
+        dados.HoraFim =  fim;
+   
+        var existeConflito = await _leituraAgendaRepository.ExisteConflito(inicio, fim);
+
+        if (existeConflito)
+        {
+            resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(
+                string.Empty, "Escolha um horário disponível."));
+        }
         
         if (!resultado.IsValid)
         {
@@ -44,4 +72,10 @@ public class RegistrarAgenda : IRegistrarAgenda
         }
        
     }
+
+    private static int ObterDuracaoEmMinutos(EServicos servico) => servico switch
+    {
+        EServicos.ComboPeMao => 60,
+        _ => 30
+    };
 }

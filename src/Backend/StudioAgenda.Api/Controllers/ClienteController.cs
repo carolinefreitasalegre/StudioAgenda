@@ -20,14 +20,15 @@ namespace StudioAgenda.Api.Controllers
             return Created("",  resposta);
         }
 
-        [HttpGet]
+        // [HttpGet("perfil")]
         // [Authorize]
-        [ProducesResponseType(typeof(RespostaPerfilUsuario), StatusCodes.Status200OK)]
-        public async Task<IActionResult>PerfilCliente([FromServices] IPerfilClienteUseCase useCase)
-        {
-            var cliente = useCase.Execute();
-            return Ok(cliente);
-        }
+        // [ProducesResponseType(typeof(RespostaPerfilUsuarioJson), StatusCodes.Status200OK)]
+        // public async Task<IActionResult> PegarPerfil([FromServices] IPerfilClienteUseCase useCase)
+        // {
+        //     var result = await useCase.Execute();
+        //     return Ok(result);
+        // }
+        //
         
     }
 }

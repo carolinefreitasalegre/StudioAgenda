@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StudioAgenda.Application.UseCases.Profissional.Perfil;
 using StudioAgenda.Application.UseCases.Profissional.Registrar;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;

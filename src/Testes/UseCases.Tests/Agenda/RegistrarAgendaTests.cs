@@ -20,20 +20,6 @@ public class RegistrarAgendaTests
         result.ShouldNotBeNull();
         result.DataHora.ShouldBe(request.DataHora);
     }
-
-    // [Fact]
-    // public async Task ShouldNotRegisterAgenda_WhenDateIsNotFree()
-    // {
-    //     var request = RequisicaoRegistrarAgendaJsonBuilder.Build();
-    //     var leituraAgendaRepository = new ILeituraAgendaRepositoryBuilder()
-    //         .ExisteAgendaHoje(request.DataHora)
-    //         .Build();
-    //     
-    //     var useCase = RegistrarAgendaUseCase(leituraAgendaRepository);
-    //     var result = async () => await useCase.Execute(request);
-    //     var exception = await result.ShouldThrowAsync<ErrorOnValidationAgendaException>();
-    //     exception.PegarMensagensErro().ShouldContain("Data indiponível no momento.");
-    // }
     
     private RegistrarAgenda RegistrarAgendaUseCase(ILeituraAgendaRepository agendaRepository)
     {
