@@ -8,7 +8,7 @@ namespace WebApi.Tests.Profissional;
 
 public class RegistrarContaProfissionalTests : IClassFixture<StudioAgendaApplicationFactory>
 {
-    private const string REQUEST_URI = "/profissional";
+    private const string REQUEST_URI = "/profissionalUseCase";
     private readonly HttpClient _client;
 
     public RegistrarContaProfissionalTests(StudioAgendaApplicationFactory factory)

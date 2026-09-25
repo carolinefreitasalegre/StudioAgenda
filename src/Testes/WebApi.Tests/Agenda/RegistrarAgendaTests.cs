@@ -61,6 +61,6 @@ public class RegistrarAgendaTests : IClassFixture<StudioAgendaApplicationFactory
         var errors = responseData.GetProperty("errors").EnumerateArray();
         
         errors.Count().ShouldBe(1);
-        errors.ShouldContain(err => err.GetString() == "Selecione a profissional desejada.");
+        errors.ShouldContain(err => err.GetString() == "Selecione a profissionalUseCase desejada.");
     }
 }

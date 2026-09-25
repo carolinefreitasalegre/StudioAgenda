@@ -45,7 +45,7 @@ public class RegistrarAgendaTests
         result.Errors.ShouldSatisfyAllConditions(errors =>
         {
             errors.Count.ShouldBe(1);
-            errors.ShouldContain(err=> err.ErrorMessage.Equals("Selecione a profissional desejada."));
+            errors.ShouldContain(err=> err.ErrorMessage.Equals("Selecione a profissionalUseCase desejada."));
         });
         
     }

@@ -41,5 +41,10 @@ internal class AgendaRepository : IRegistrarAgendaRepository, ILeituraAgendaRepo
         return await _context.agendas
             .AnyAsync(a => inicio < a.HoraFim && fim > a.HoraInicio);
     }
-    
+
+    public async Task<IReadOnlyList<Domain.Entidades.Agenda>> AgendaPorIdProfissional(Guid id)
+    {
+        return await _context.agendas.Where(profissional => profissional.ProfissionalId == id).ToListAsync();
+       
+    }
 }

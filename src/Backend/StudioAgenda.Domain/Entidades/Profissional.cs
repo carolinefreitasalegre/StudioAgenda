@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace StudioAgenda.Domain.Entidades;
 
 public class Profissional : UsuarioBase
@@ -6,4 +8,5 @@ public class Profissional : UsuarioBase
     public string? Especialidade { get; set; } =  string.Empty;
     
     //public decimal PrecoAtendimento { get; set; }
+
 }

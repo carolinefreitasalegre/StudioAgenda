@@ -4,7 +4,6 @@ using StudioAgenda.Application.UseCases.Agenda;
 using StudioAgenda.Application.UseCases.Agenda.LeituraAgenda;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;
-using StudioAgenda.Domain.Repositorios.Agenda;
 
 namespace StudioAgenda.Api.Controllers
 {
@@ -27,7 +26,9 @@ namespace StudioAgenda.Api.Controllers
         public async Task<IActionResult> Agenda([FromServices] ILeituraAgendaUseCase registro)
         {
             var agenda = await registro.Execute();
-            return Ok(agenda);
+            return Ok(agenda);  
         }
+        
+       
     }
 }

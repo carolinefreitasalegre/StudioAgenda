@@ -28,6 +28,7 @@ public static class InjecaoDependencias
         services.AddTransient<ILoginProfissionalComEmailESenha, LoginProfissionalComEmailESenha>();
         services.AddTransient<ILoginClienteComTelefoneESenha, LoginClienteComTelefoneESenha>();
         services.AddTransient<ILeituraAgendaUseCase, LeituraAgendaUseCase>();
+        services.AddTransient<ILeituraAgendaPorProfissionalUseCase, LeituraAgendaPorProfissionalUseCase>();
         services.AddTransient<IPerfilClienteUseCase, PerfilClienteUseCase>();
     }
 

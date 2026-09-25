@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudioAgenda.Application.UseCases.Login;
 using StudioAgenda.Application.UseCases.Login.LoginCliente;

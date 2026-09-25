@@ -25,11 +25,12 @@ internal class ProfissionalRepository : IRegistrarProfissionalRepository, ILeitu
 
     public async Task<bool> ExisteProfissionalAtivoId(Guid id)
     {
-        return await  _context.profissionais.AnyAsync(profissional => profissional.Email.Equals(id));
+        return await  _context.profissionais.AnyAsync(profissional => profissional.Id == id);
     }
 
     public async Task<Profissional?> ObterViaEmail(string email)
     {
         return await _context.profissionais.FirstOrDefaultAsync(profissional => profissional.Email.Equals(email));
     }
+   
 }

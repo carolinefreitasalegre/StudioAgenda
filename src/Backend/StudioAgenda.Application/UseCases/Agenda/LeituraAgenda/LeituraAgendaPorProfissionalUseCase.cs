@@ -5,12 +5,12 @@ using StudioAgenda.Domain.Repositorios.Agenda;
 
 namespace StudioAgenda.Application.UseCases.Agenda.LeituraAgenda;
 
-public class LeituraAgendaUseCase : ILeituraAgendaUseCase
+public class LeituraAgendaPorProfissionalUseCase : ILeituraAgendaPorProfissionalUseCase
 {
     private readonly ILeituraAgendaRepository _repository;
     private readonly IUsuarioLogado _usuarioLogado;
 
-    public LeituraAgendaUseCase(ILeituraAgendaRepository repository, IUsuarioLogado usuarioLogado)
+    public LeituraAgendaPorProfissionalUseCase(ILeituraAgendaRepository repository, IUsuarioLogado usuarioLogado)
     {
         _repository = repository;
         _usuarioLogado = usuarioLogado;
@@ -18,11 +18,9 @@ public class LeituraAgendaUseCase : ILeituraAgendaUseCase
 
     public async Task<IReadOnlyList<RespostaRegistroAgendaJson>> Execute()
     {
-        var usuario = await _usuarioLogado.PegarCliente();
-        var agenda = await _repository.AgendaPorId(usuario.Id);
-   
-        return agenda.Adapt<IReadOnlyList<RespostaRegistroAgendaJson>>();
+       var profissional = await _usuarioLogado.PegarProfissional();
+       var agenda = await _repository.AgendaPorIdProfissional(profissional.Id);
+
+       return agenda.Adapt<IReadOnlyList<RespostaRegistroAgendaJson>>();
     }
-    
-    
 }

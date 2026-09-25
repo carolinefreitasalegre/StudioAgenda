@@ -7,4 +7,5 @@ public interface ILeituraAgendaRepository
     Task<IReadOnlyList<Entidades.Agenda?>> AgendaPorId(Guid id);
     Task<IReadOnlyList<Domain.Entidades.Agenda>> AgendaGeral();
     Task<bool> ExisteConflito(TimeOnly inicio, TimeOnly fim);
+    Task<IReadOnlyList<Domain.Entidades.Agenda>> AgendaPorIdProfissional(Guid id);
 }
