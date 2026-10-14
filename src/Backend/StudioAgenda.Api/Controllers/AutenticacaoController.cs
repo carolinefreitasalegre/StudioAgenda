@@ -13,7 +13,7 @@ namespace StudioAgenda.Api.Controllers
         [HttpPost("login-profissional")]
         [ProducesResponseType(typeof(RespostaRegistroProfissionalJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(RespostaErroJson), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> LoginProfissional([FromBody] RequisicaoProfissionalLoginJson requisicao, 
+        public async Task<IActionResult> LoginProfissional([FromBody] RequisicaoProfissionalLogin requisicao, 
             [FromServices] ILoginProfissionalComEmailESenha login)
         {
             var response = await login.Execute(requisicao);
@@ -23,7 +23,7 @@ namespace StudioAgenda.Api.Controllers
         [HttpPost("login-cliente")]
         [ProducesResponseType(typeof(RespostaRegistroClienteJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(RespostaErroJson), StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> LoginCliente([FromBody] RequisicaoClienteLoginJson requisicao,
+        public async Task<IActionResult> LoginCliente([FromBody] RequisicaoClienteLogin requisicao,
             [FromServices] ILoginClienteComTelefoneESenha login)
         {
             var response = await login.Execute(requisicao);
