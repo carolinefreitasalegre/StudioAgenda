@@ -126,7 +126,7 @@ namespace StudioAgenda.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("StudioAgenda.Domain.Entidades.Profissional", "Profissional")
-                        .WithMany()
+                        .WithMany("MinhaAgenda")
                         .HasForeignKey("ProfissionalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -134,6 +134,11 @@ namespace StudioAgenda.Infrastructure.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Profissional");
+                });
+
+            modelBuilder.Entity("StudioAgenda.Domain.Entidades.Profissional", b =>
+                {
+                    b.Navigation("MinhaAgenda");
                 });
 #pragma warning restore 612, 618
         }

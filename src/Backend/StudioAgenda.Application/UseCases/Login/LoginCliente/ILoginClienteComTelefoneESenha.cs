@@ -5,5 +5,5 @@ namespace StudioAgenda.Application.UseCases.Login.LoginCliente;
 
 public interface ILoginClienteComTelefoneESenha
 {
-    Task<RespostaRegistroClienteJson> Execute(RequisicaoClienteLoginJson requisicao);
+    Task<RespostaRegistroClienteJson> Execute(RequisicaoClienteLogin requisicao);
 }

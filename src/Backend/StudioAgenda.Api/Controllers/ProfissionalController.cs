@@ -1,5 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StudioAgenda.Application.UseCases.Profissional.Perfil;
+using StudioAgenda.Application.UseCases.Agenda.LeituraAgenda;
 using StudioAgenda.Application.UseCases.Profissional.Registrar;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;
@@ -16,6 +17,14 @@ namespace StudioAgenda.Api.Controllers
         {
             var resposta = await dados.Execute(profissional);
             return Created("", resposta);
+        }
+        [HttpGet("minha-agenda")]
+        [Authorize(Roles = "Profissional")]
+        [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
+        public async Task<IActionResult> VerAgenda([FromServices] ILeituraAgendaPorProfissionalUseCase profissionalUseCase)
+        {
+            var resposta = await profissionalUseCase.Execute();
+            return Ok(resposta);
         }
     }
 }

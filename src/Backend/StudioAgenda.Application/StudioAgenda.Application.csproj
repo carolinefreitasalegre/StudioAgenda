@@ -17,6 +17,11 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Agenda\LeituraAgenda\LeituraAgendaCliente\" />
+    <Folder Include="UseCases\Agenda\LeituraAgenda\LeituraAgendaProfissional\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

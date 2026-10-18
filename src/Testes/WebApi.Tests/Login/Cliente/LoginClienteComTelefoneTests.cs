@@ -24,7 +24,7 @@ public class LoginClienteComTelefoneTests : IClassFixture<StudioAgendaApplicatio
     [Fact]
     public async Task Success()
     {
-        var request = new RequisicaoClienteLoginJson
+        var request = new RequisicaoClienteLogin
         {
             Telefone = _usuario.PegarTelefone(),
             Senha =  _usuario.PegarSenha()

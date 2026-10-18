@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
                 if (Guid.TryParse(userId, out var id) == false)
                 {
-                    context.Fail("Token invélido");
+                    context.Fail("Token inválido");
                     return;
                 }
 

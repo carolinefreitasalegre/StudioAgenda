@@ -45,19 +45,21 @@ public class RegistrarAgenda : IRegistrarAgenda
 
     private async Task ValidarDadosEntrada(RequisicaoRegistrarAgenda dados)
     {
-        var validator = new ValidacaoRegistrarAgenda();
+        var validacao = new ValidacaoRegistrarAgenda();
         
-        var resultado = await validator.ValidateAsync(dados);
+        var resultado = await validacao.ValidateAsync(dados);
 
         var duracao = ObterDuracaoEmMinutos(dados.Servico);
         
         var inicio = dados.HoraInicio;
         var fim = dados.HoraInicio.AddMinutes(duracao);
+        var data = dados.Data;
         
         dados.HoraFim =  fim;
    
-        var existeConflito = await _leituraAgendaRepository.ExisteConflito(inicio, fim);
+        var existeConflito = await _leituraAgendaRepository.ExisteConflito(data, inicio, fim, status: EStatusAgendamento.Aberto);
 
+        
         if (existeConflito)
         {
             resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(
@@ -72,7 +74,7 @@ public class RegistrarAgenda : IRegistrarAgenda
         }
        
     }
-
+    
     private static int ObterDuracaoEmMinutos(EServicos servico) => servico switch
     {
         EServicos.ComboPeMao => 60,

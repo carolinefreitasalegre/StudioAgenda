@@ -1,6 +1,8 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using StudioAgenda.Application.UseCases.Agenda;
+using StudioAgenda.Application.UseCases.Agenda.CancelarAgenda;
+using StudioAgenda.Application.UseCases.Agenda.EdicaoAgenaCliente;
 using StudioAgenda.Application.UseCases.Agenda.LeituraAgenda;
 using StudioAgenda.Application.UseCases.Cliente;
 using StudioAgenda.Application.UseCases.Cliente.Perfil;
@@ -25,9 +27,12 @@ public static class InjecaoDependencias
         services.AddTransient<IRegistrarCliente, RegistrarCliente>();
         services.AddTransient<IRegistrarProfissional, RegistrarProfissional>();
         services.AddTransient<IRegistrarAgenda, RegistrarAgenda>();
+        services.AddTransient<IEditarAgendaCliente, EditarAgendaCliente>();
         services.AddTransient<ILoginProfissionalComEmailESenha, LoginProfissionalComEmailESenha>();
         services.AddTransient<ILoginClienteComTelefoneESenha, LoginClienteComTelefoneESenha>();
-        services.AddTransient<ILeituraAgendaUseCase, LeituraAgendaUseCase>();
+        services.AddTransient<ILeituraAgendaPorClienteUseCase, LeituraAgendaPorClienteUseCase>();
+        services.AddTransient<ILeituraAgendaPorProfissionalUseCase, LeituraAgendaPorProfissionalUseCase>();
+        services.AddTransient<ICancelarAgendaUseCase, CancelarAgendaUseCase>();
         services.AddTransient<IPerfilClienteUseCase, PerfilClienteUseCase>();
     }
 

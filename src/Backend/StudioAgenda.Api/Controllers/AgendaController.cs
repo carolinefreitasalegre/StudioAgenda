@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudioAgenda.Application.UseCases.Agenda;
+using StudioAgenda.Application.UseCases.Agenda.CancelarAgenda;
+using StudioAgenda.Application.UseCases.Agenda.EdicaoAgenaCliente;
 using StudioAgenda.Application.UseCases.Agenda.LeituraAgenda;
 using StudioAgenda.Communication.Respostas;
 using StudioAgenda.Domain.Dtos.Requisicoes;
-using StudioAgenda.Domain.Repositorios.Agenda;
 
 namespace StudioAgenda.Api.Controllers
 {
@@ -24,10 +25,29 @@ namespace StudioAgenda.Api.Controllers
 
         [HttpGet("meus-agendamentos")]
         [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Agenda([FromServices] ILeituraAgendaUseCase registro)
+        public async Task<IActionResult> Agenda([FromServices] ILeituraAgendaPorClienteUseCase registro)
         {
             var agenda = await registro.Execute();
-            return Ok(agenda);
+            return Ok(agenda);  
         }
+        
+        [HttpPut("editar-minha-agenda/{agendaId}")]
+        [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
+        public async Task<IActionResult> EditarAgendaCliente([FromBody] RequisicaoEdicaoAgendaCliente agenda, 
+            [FromServices] IEditarAgendaCliente dados, Guid agendaId)
+        {
+            await dados.Execute(agenda, agendaId);
+            return NoContent();
+        }
+        
+        [HttpPut("cancelar-horario")]
+        [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
+        public async Task<IActionResult> CancelarHorario([FromBody] RequisicaoCancelarHorario req, 
+            [FromServices] ICancelarAgendaUseCase useCase)
+        {
+            await useCase.Execute(req);
+            return NoContent();
+        }
+       
     }
 }
