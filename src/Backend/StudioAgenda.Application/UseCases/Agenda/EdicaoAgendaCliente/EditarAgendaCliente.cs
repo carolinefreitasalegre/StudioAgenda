@@ -30,10 +30,8 @@ public class EditarAgendaCliente : IEditarAgendaCliente
         
         await ValidarDadosEntrada(dados);
         
-        //pegar a agenda ligada ao usuario
         var agendaDoUsuario = await _leituraAgendaRepository.AgendaPorIdCliente(usuarioLogado);
 
-        //pegar a agenda relacionada ao id para a qual eu quero alterar
         var agendaEditada = agendaDoUsuario.FirstOrDefault(onde => onde.Id == agendaId);
 
         if (agendaEditada is null)
@@ -50,11 +48,6 @@ public class EditarAgendaCliente : IEditarAgendaCliente
 
     private async Task ValidarDadosEntrada(RequisicaoEdicaoAgendaCliente dados)
     {
-        //se pertence a um id ja existente, nao travar validacao no horario pre existente, caso a edicao seja de outros itens que nao o horario
-        //primeiro ajustar o servico de cancelamento
-        //se ela for alterar apenas o Servico, nao validar horario.
-        
-        
         var validacao = new ValidacaoEditarAgendaCliente();
         
         var resultado = await validacao.ValidateAsync(dados);

@@ -41,7 +41,7 @@ namespace StudioAgenda.Api.Controllers
         }
         
         [HttpPut("cancelar-horario")]
-        // [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RespostaRegistroAgendaJson), StatusCodes.Status200OK)]
         public async Task<IActionResult> CancelarHorario([FromBody] RequisicaoCancelarHorario req, 
             [FromServices] ICancelarAgendaUseCase useCase)
         {
