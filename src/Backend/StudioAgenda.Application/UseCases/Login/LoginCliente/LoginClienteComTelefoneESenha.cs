@@ -20,7 +20,7 @@ public class LoginClienteComTelefoneESenha : ILoginClienteComTelefoneESenha
         _token = token;
     }
 
-    public async Task<RespostaRegistroClienteJson> Execute(RequisicaoClienteLoginJson requisicao)
+    public async Task<RespostaRegistroClienteJson> Execute(RequisicaoClienteLogin requisicao)
     {
         var cliente = await _repository.ObterViaTelefone(requisicao.Telefone);
         if (cliente is null)

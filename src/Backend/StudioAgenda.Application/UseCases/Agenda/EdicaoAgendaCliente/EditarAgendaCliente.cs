@@ -67,7 +67,7 @@ public class EditarAgendaCliente : IEditarAgendaCliente
         
         dados.HoraFim =  fim;
    
-        var existeConflito = await _leituraAgendaRepository.ExisteConflito(data, inicio, fim);
+        var existeConflito = await _leituraAgendaRepository.ExisteConflito(data, inicio, fim, status: EStatusAgendamento.Aberto);
 
         if (existeConflito)
         {

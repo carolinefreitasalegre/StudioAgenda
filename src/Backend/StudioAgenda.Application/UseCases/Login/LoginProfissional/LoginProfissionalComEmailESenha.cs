@@ -21,7 +21,7 @@ public class LoginProfissionalComEmailESenha : ILoginProfissionalComEmailESenha
         _token = token;
     }
 
-    public async Task<RespostaRegistroProfissionalJson> Execute(RequisicaoProfissionalLoginJson requisicao)
+    public async Task<RespostaRegistroProfissionalJson> Execute(RequisicaoProfissionalLogin requisicao)
     {
         var profissional = await _profissionalRepository.ObterViaEmail(requisicao.Email);
         

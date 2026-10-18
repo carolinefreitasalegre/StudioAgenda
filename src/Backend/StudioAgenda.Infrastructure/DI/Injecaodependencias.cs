@@ -33,6 +33,8 @@ public static class Injecaodependencias
         service.AddScoped<ILeituraProfissionalRepository, ProfissionalRepository>();
         service.AddScoped<ILeituraAgendaRepository, AgendaRepository>();
         service.AddScoped<IRegistrarAgendaRepository, AgendaRepository>();
+        service.AddScoped<IEditarAgendaClienteRepository, AgendaRepository>();
+        service.AddScoped<ICancelarHorarioRepository, AgendaRepository>();
         service.AddScoped<ISenhaHash, Argon2SenhaHash>();
         service.AddScoped<IUsuarioLogado, UsuarioLogado>();
     }

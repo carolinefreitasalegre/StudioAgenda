@@ -1,6 +1,6 @@
 namespace StudioAgenda.Domain.Repositorios.Agenda;
 
-public interface ICancelarHorario
+public interface ICancelarHorarioRepository
 {
-    void CanelarHorario(Domain.Entidades.Agenda agenda);
+    Task CanelarHorario(Domain.Entidades.Agenda agenda);
 }

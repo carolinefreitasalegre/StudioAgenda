@@ -5,5 +5,5 @@ namespace StudioAgenda.Application.UseCases.Login;
 
 public interface ILoginProfissionalComEmailESenha
 {
-    Task<RespostaRegistroProfissionalJson>Execute(RequisicaoProfissionalLoginJson requisicaoProfissional);
+    Task<RespostaRegistroProfissionalJson>Execute(RequisicaoProfissionalLogin requisicaoProfissional);
 }
